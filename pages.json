@@ -26,8 +26,35 @@
 			"navigationBarTitleText": "黑马优购",
 			"enablePullDownRefresh": false
 		}
-
+		
 	}],
+	
+	// 分包
+	"subPackages":[
+		// 分包
+		{
+			"root":"sbupkg",
+			"pages":[{
+                    "path" : "goods_detail/goods_detail",
+                    "style" :                                                                                    
+                {
+                    "navigationBarTitleText": "",
+                    "enablePullDownRefresh": false
+                }
+                
+                }
+                ,{
+                    "path" : "goods_list/goods_list",
+                    "style" :                                                                                    
+                {
+                    "navigationBarTitleText": "",
+                    "enablePullDownRefresh": false
+                }
+                
+                }
+            ]
+			
+		}],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "www",
