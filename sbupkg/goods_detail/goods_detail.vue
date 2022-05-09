@@ -1,6 +1,6 @@
 <template>
 	<view>
-		
+		detail页面
 	</view>
 </template>
 
@@ -8,9 +8,11 @@
 	export default {
 		data() {
 			return {
+				doods:[],
 				
 			};
-		}
+		},
+		
 	}
 </script>
 

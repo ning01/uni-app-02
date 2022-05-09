@@ -123,12 +123,13 @@
 		font-size: 12px;
 		font-weight: 200;
 		padding: $tag-default-pd;
-		color: #fff;
+		color: #111100;
 		border-radius: 3px;
-		background-color: $uni-info;
+		// background-color: $uni-info;
+		background-color: #efefef;
 		border-width: 1rpx;
 		border-style: solid;
-		border-color: $uni-info;
+		border-color: #efefef;
 		/* #ifdef H5 */
 		cursor: pointer;
 		/* #endif */
