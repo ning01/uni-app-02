@@ -38,7 +38,36 @@
 
 
 <script>
+	
+	import { mapState ,mapMutations,mapGetters} from 'vuex'
+	
 	export default {
+		
+		computed:{
+			...mapState ('m_cart',[]),
+			...mapGetters('m_cart',['total'])
+		},
+		// 定义watch监听器
+		// watch:{
+		// 	total(newVal){
+				
+		// 	  const findResault = this.options.find(x=>x.text==="购物车")
+		// 	  if(findResault){
+		// 		  findResault.info = newVal
+		// 	  }
+		// 	}
+		// },
+		watch:{
+			total:{
+				handler(newVal){
+				const findResault =this.options.find(x=>x.text==='购物车')
+					if(findResault){
+						findResault.info=newVal
+					}
+				},
+				immediate:true
+			}
+		},
 		data() {
 			return {
 				// doods:[],
@@ -51,13 +80,13 @@
 						}, {
 							icon: 'shop',
 							text: '店铺',
-							info: 2,
+							info: 0,
 							infoBackgroundColor:'#007aff',
 							infoColor:"red"
 						}, {
 							icon: 'cart',
 							text: '购物车',
-							info: 2
+							info: 0
 						}],
 					    buttonGroup: [{
 					      text: '加入购物车',
@@ -85,6 +114,7 @@
 
 		},
 		methods: {
+			...mapMutations('m_cart',['addToCart']),
 			//声明一个获取商品详情对象的方法
 			async getGoodsDetail(goods_id) {
 				const {
@@ -119,9 +149,29 @@
 					
 					
 				}
+			},
+			
+			buttonClick(e){
+				// console.log(e)
+				if(e.content.text==="加入购物车"){
+					
+				// 组织一个商品信息对象
+				const goods={
+					
+					goods_id:this.goods_info.goods_id,
+					goods_name:this.goods_info.goods_name,
+					goods_price:this.goods_info.goods_price,
+					goods_count:1,
+					goods_small_logo:this.goods_info.goods_small_logo,
+					goods_state:true
+				}
+				
+				this.addToCart(goods)
+				}
+				
 			}
-
-		},
+				
+		}
 	}
 </script>
 

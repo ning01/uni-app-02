@@ -3,6 +3,7 @@
 	<view class="goods-item">
 		
 		<view class="goods-item-left">
+			<radio :checked="goods.goods_state" color="#c00000" v-if="showRadio"  @click="radioClickHandler" ></radio>
 			<!-- 商品左侧的图片区域 -->
 			<image  :src="goods.goods_small_logo||defaultPic "   class="goods-pic"></image>
 		</view>	
@@ -16,6 +17,7 @@
 				<!-- 商品的价格 -->
 				<!-- 调用过滤器 -->
 				<view class="goods-price">&yen;{{goods.goods_price | tofixed}}</view>
+				<uni-number-box :min="1" :value="goods.goods_count" v-if="showNum" @change="numChangeHandler"></uni-number-box>
 			</view>
 				
 		</view>
@@ -37,12 +39,39 @@
 			goods:{
 				type:Object,
 				default:{}
+			},
+			showRadio:{
+				type:Boolean,
+				default:false
+			},
+			showNum:{
+				type:Boolean,
+				default:false
 			}
 		},
 		filters:{
 			//定义过滤器将数值转为带两位小数的数字
 			tofixed(num){
 				return Number(num).toFixed(2)
+			}
+		},
+		methods:{
+			
+			radioClickHandler(){
+				this.$emit('radio-change',{
+					
+					goods_id : this.goods.goods_id,
+					goods_state :!this.goods.goods_state
+				})
+			},
+			
+			// 监听到了numbox的数值变化
+			numChangeHandler(val){
+				// console.log(val)
+				this.$emit('numChange',{
+					goods_id:this.goods.goods_id,
+					goods_count:+val
+				})
 			}
 		}
 	}
@@ -54,20 +83,28 @@
 	padding:10px 5px;
 	border-bottom: 1px solid #efefef;
 	.goods-item-left{
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
 		.goods-pic{
 			width: 100px;
 			height: 100px;
 			display: block;
 			margin-right:8px;
+			
 		}
 	}
 	.goods-item-right{
 		display: flex;
 		flex-direction: column;
 		justify-content: space-between;
+		flex:1;
 		.goods-name{}
 			font-size: 13px;
 		.goods-info-box{
+			display: flex;
+			justify-content: space-between;
+			
 			.goods-price{
 				font-size: 16px;
 				color:#c00000;
